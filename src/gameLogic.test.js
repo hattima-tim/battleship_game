@@ -6,3 +6,9 @@ test('hit function marks hit positions',()=>{
     expect(shipObj.hitPositions).toContain(1)
 })
 
+test('placeShip function add ships to the shipList array',()=>{
+    const gameboard=gameBoard();
+    gameboard.placeShip('carrier',2);
+    expect(gameboard.shipList.length).toBe(1);
+})
+
