@@ -1,4 +1,4 @@
-function ship(shipname){
+function ship(shipname,coordinate){
     let shipLength;
     switch(shipname){
         case 'carrier':
@@ -11,18 +11,28 @@ function ship(shipname){
             shipLength=3;
             break;
         case 'petrol boat':
-            length2;
+            shipLength=2;
             break;
     }
-    let hittedPositions=[];
+    let hitPositions=[];
     function hit(hitCoordinate){
-        hittedPositions.push(hitCoordinate);
+        hitPositions.push(hitCoordinate);
     }
     function isSunk(){
-        if(hittedPositions.length===shipLength){
+        if(hitPositions.length===shipLength){
             return true;
         }
         return false;
     }
-    return {hit,isSunk}
+    return {coordinate,shipLength,hitPositions,hit,isSunk}
 }
+
+function gameBoard(){
+    let shipList=[];
+    function placeShip(shipname,coordinate){
+        shipList.push(ship(shipname,coordinate));
+    }
+    return {shipList,placeShip} 
+}
+
+export {ship,gameBoard}
