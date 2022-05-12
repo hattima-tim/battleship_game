@@ -32,7 +32,17 @@ function gameBoard(){
     function placeShip(shipname,coordinate){
         shipList.push(ship(shipname,coordinate));
     }
-    return {shipList,placeShip} 
+    let missedHits=[];
+    function receiveAttack(hitCoordinate){
+        shipList.forEach((ship,index)=>{
+            if(hitCoordinate>=ship.coordinate && hitCoordinate<=(ship.coordinate+ship.shipLength)){
+                ship.hit(hitCoordinate);
+            }else if(index===shipList.length-1){
+                missedHits.push(hitCoordinate)
+            }
+        })
+    }
+    return {shipList,placeShip,receiveAttack,missedHits} 
 }
 
 export {ship,gameBoard}
