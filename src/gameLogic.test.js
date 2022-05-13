@@ -1,4 +1,4 @@
-import {ship,gameBoard} from './gameLogic';
+import {ship,gameBoard,humanPlayer,ai} from './gameLogic';
 
 test('hit function marks hit positions',()=>{
     const shipObj=ship('carrier',2);
@@ -26,4 +26,17 @@ test('gameBoard keep record of the missed attacks',()=>{
     gameboard.placeShip('carrier',2)
     gameboard.receiveAttack(1);
     expect(gameboard.missedHits).toContain(1)
+})
+
+test('ai can make random attack',()=>{
+    const human=humanPlayer();
+    human.gameboard.placeShip('carrier',5);
+    const gameBoardSize=100;
+    const aiPlayer=ai(gameBoardSize);
+    aiPlayer.attack(human.gameboard);
+    try{
+        expect(human.gameboard.shipList[0].hitPositions.length).toBe(1);
+    }catch{
+        expect(human.gameboard.missedHits.length).toBe(1)
+    }
 })
