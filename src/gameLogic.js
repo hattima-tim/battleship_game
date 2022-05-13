@@ -45,4 +45,26 @@ function gameBoard(){
     return {shipList,placeShip,receiveAttack,missedHits} 
 }
 
-export {ship,gameBoard}
+function humanPlayer(){
+    const gameboard=gameBoard();
+    function attack(enemyGameBoard,attackCoordinate){
+        enemyGameBoard.receiveAttack(attackCoordinate);
+    }
+    return {gameboard,attack}
+}
+
+function ai(gameBoardSize){
+       const gameboard=gameBoard();
+       let coordinatesForAttack=[];
+       for(let i=0;i<gameBoardSize;i++){
+           coordinatesForAttack.push(i);
+       }
+       function attack(enemyGameBoard){
+           const shotCoordinate=coordinatesForAttack[Math.floor(Math.random()*coordinatesForAttack.length)];
+           coordinatesForAttack.splice(coordinatesForAttack.indexOf(shotCoordinate),1);
+           enemyGameBoard.receiveAttack(shotCoordinate);
+       }
+       return {gameboard,attack}
+}
+
+export {ship,gameBoard,humanPlayer,ai}
