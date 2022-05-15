@@ -37,13 +37,14 @@ function gameBoard(){
     }
     let missedHits=[];
     function receiveAttack(hitCoordinate){
-        shipList.forEach((ship,index)=>{
-            if(hitCoordinate>=ship.coordinate && hitCoordinate<=(ship.coordinate+ship.shipLength)){
-                ship.hit(hitCoordinate);
-            }else if(index===shipList.length-1){
+        for(let i=0;i<shipList.length;i++){
+            if(hitCoordinate>=shipList[i].coordinate && hitCoordinate<(shipList[i].coordinate+shipList[i].shipLength)){
+                shipList[i].hit(hitCoordinate);
+                break;
+            }else if(i===shipList.length-1){ //means,we are at the end of the loop but we did not find a hit
                 missedHits.push(hitCoordinate)
             }
-        })
+        }
     }
     return {shipList,placeShip,receiveAttack,missedHits} 
 }
