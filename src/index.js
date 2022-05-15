@@ -18,3 +18,12 @@ function createGameBoardDom(gameBoardContainerName){
 
 createGameBoardDom(friendlyAreaGameboard);
 createGameBoardDom(enemyAreaGameboard);
+
+function markShipsInTheDom(humanGameBoard){
+    humanGameBoard.shipList.forEach(ship => {
+        for(let i=0;i<ship.shipLength;i++){
+            friendlyAreaGameboard.children[ship.coordinate+i].style.background='#444444';
+        }
+    });
+}
+
