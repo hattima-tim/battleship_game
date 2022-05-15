@@ -38,3 +38,8 @@ function markHitUnhit(enemy,enemyGameboardDom){
         enemyGameboardDom.children[missedHitPosition].textContent='o';
     })
 }
+
+function itIsAiTurn(ai,human){
+    ai.attack(human.gameboard);
+    markHitUnhit(human,friendlyAreaGameboard)
+}
