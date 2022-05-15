@@ -25,7 +25,16 @@ test('gameBoard keep record of the missed attacks',()=>{
     const gameboard=gameBoard();
     gameboard.placeShip('carrier',2)
     gameboard.receiveAttack(1);
+    gameboard.receiveAttack(2);
     expect(gameboard.missedHits).toContain(1)
+})
+
+test('if a hit is found,for loop inside receiveAttack function breaks',()=>{
+    const gameboard=gameBoard();
+    gameboard.placeShip('carrier',2)
+    gameboard.receiveAttack(2);
+    expect(gameboard.shipList[0].hitPositions).toContain(2);
+    expect(gameboard.missedHits.length).toBe(0); 
 })
 
 test('ai can make random attack',()=>{
