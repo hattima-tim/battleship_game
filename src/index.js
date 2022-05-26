@@ -9,9 +9,17 @@ function createGameBoardDom(gameBoardContainerName){
     gameBoardContainerName.style.gridTemplateRows=`repeat(${gridSize},1fr)`;
     gameBoardContainerName.style.gridTemplateColumns=`repeat(${gridSize},1fr)`;
     let squareDiv=[];
+    let loopCount=1;
+    let yAxis=1;
     for (let i=0;i<gridSquare;i++){
         squareDiv[i]=document.createElement('div');
-        squareDiv[i].setAttribute('data-index',`${i}`);
+        squareDiv[i].setAttribute('data-index',`${[i,yAxis]}`);
+        if(loopCount===10){
+            yAxis+=1;
+            loopCount=1;
+        }else{
+            loopCount+=1;
+        }
         squareDiv[i].classList.add('square_div');
         gameBoardContainerName.appendChild(squareDiv[i]);
     }
