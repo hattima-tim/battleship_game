@@ -8,6 +8,30 @@ function addDragDropFeature(){
             })
         }
     })
+
+    function dragEnter(e){
+
+    }
+
+    function dragOver(e){
+
+    }
+
+    function dragLeave(e){
+
+    }
+    
+    function drop(e){
+
+    }
+    
+    const humanGameboardCells=document.querySelectorAll('#friendly-area-gameboard .square_div');
+    humanGameboardCells.forEach(cell => {
+        cell.addEventListener('dragenter', dragEnter)
+        cell.addEventListener('dragover', dragOver);
+        cell.addEventListener('dragleave', dragLeave);
+        cell.addEventListener('drop', drop);
+    });
 }
 
 export {addDragDropFeature}
