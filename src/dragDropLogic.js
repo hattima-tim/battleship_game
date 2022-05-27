@@ -18,11 +18,11 @@ function addDragDropFeature(){
     }
 
     function dragEnter(e){
-
+        e.preventDefault();
     }
 
     function dragOver(e){
-
+        e.preventDefault();
     }
 
     function dragLeave(e){
