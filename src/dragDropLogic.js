@@ -10,7 +10,11 @@ function addDragDropFeature(){
     })
 
     function dragstart(e){
-        
+        const shipBeingDragged=e.target;
+        const positionOfMouseOnTheShip=shipBeingDragged.dataset.index;
+        const lengthOfTheShip=e.target.dataset.shiplength;
+        const transferData=[positionOfMouseOnTheShip,lengthOfTheShip];
+        e.dataTransfer.setData('ship-data', JSON.stringify(transferData));
     }
 
     function dragEnter(e){
