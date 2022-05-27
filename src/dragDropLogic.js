@@ -9,6 +9,10 @@ function addDragDropFeature(){
         }
     })
 
+    function dragstart(e){
+        
+    }
+
     function dragEnter(e){
 
     }
@@ -32,6 +36,11 @@ function addDragDropFeature(){
         cell.addEventListener('dragleave', dragLeave);
         cell.addEventListener('drop', drop);
     });
+
+    const draggableShips=document.querySelectorAll('.draggable');
+    draggableShips.forEach(ship=>{
+        ship.addEventListener('dragstart',dragstart);
+    })
 }
 
 export {addDragDropFeature}
