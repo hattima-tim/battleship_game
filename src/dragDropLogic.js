@@ -8,7 +8,7 @@ function addDragDropFeature(){
             })
         }
     })
-
+    
     function dragstart(e){
         const shipBeingDragged=e.target;
         const positionOfMouseOnTheShip=shipBeingDragged.dataset.index;
@@ -17,17 +17,17 @@ function addDragDropFeature(){
         const transferData=[positionOfMouseOnTheShip,lengthOfTheShip,shipName];
         e.dataTransfer.setData('ship-data', JSON.stringify(transferData));
     }
-
+    
     function dragEnter(e){
         e.preventDefault();
     }
-
+    
     function dragOver(e){
         e.preventDefault();
     }
-
+    
     function dragLeave(e){
-
+        
     }
     
     function checkIfDropValid(event,shipData){
@@ -45,29 +45,44 @@ function addDragDropFeature(){
         const shiplength=Number(shipData[1]);
         if(xAxisOfFirstCell<=xAxisOfDroppedShipFirstPosition 
             && (xAxisOfLastCell>=xAxisOfDroppedShipFirstPosition+(shiplength-1))){
-    // shilplength-1 because 95+5=100 but if you consider 95 and add 5 to it then it would be 99
-    // you have to consider this nuance when working with gameboard cells
-            return true;
-        }else{return false}
-    }
+                // shilplength-1 because 95+5=100 but if you consider 95 and add 5 to it then it would be 99
+                // you have to consider this nuance when working with gameboard cells
+                return true;
+            }else{return false}
+        }
+        
+    const human=humanPlayer();
+    const totalShips=4;
+    let dropCount=0;
 
     function drop(e){
         e.stopPropagation(); // stops the browser from redirecting.
+        
         const xAxisOfDropTarget=Number(e.target.dataset.index.split(',')[0]);
         const shipDataJson=e.dataTransfer.getData('ship-data');
         const shipData=JSON.parse(shipDataJson);
+        
         if(!checkIfDropValid(e,shipData)){
             return false; //this will stop the function and thus the drop will not be handled
         };
+        
         const shiplength=shipData[1];
         const positionOfMouseOnTheShip=shipData[0];
+        let xAxisOfShipStartPosition=xAxisOfDropTarget-positionOfMouseOnTheShip;
+        const shipName=shipData[2];
+        human.gameboard.placeShip(`${shipName}`,xAxisOfShipStartPosition);
         for(let i=0;i<shiplength;i++){
-            let xAxisOfShipStartPosition=xAxisOfDropTarget-positionOfMouseOnTheShip;
             humanGameboardCells[xAxisOfShipStartPosition+i].style.background='#444444';
         }
-        const shipName=shipData[2];
+
         const draggable=document.querySelector(`#${shipName}`);
         draggable.style.display='none';
+        dropCount+=1;
+        if(dropCount===totalShips){
+            localStorage.setItem('humanPlayerData',JSON.stringify(human));
+            const startGameButton=document.querySelector('#start');
+            startGameButton.style.display='block';
+        }
     }
     
     const humanGameboardCells=document.querySelectorAll('#friendly-area-gameboard .square_div');
