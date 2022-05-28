@@ -12,8 +12,9 @@ function addDragDropFeature(){
     function dragstart(e){
         const shipBeingDragged=e.target;
         const positionOfMouseOnTheShip=shipBeingDragged.dataset.index;
-        const lengthOfTheShip=e.target.dataset.shiplength;
-        const transferData=[positionOfMouseOnTheShip,lengthOfTheShip];
+        const lengthOfTheShip=shipBeingDragged.dataset.shiplength;
+        const shipName=shipBeingDragged.id;
+        const transferData=[positionOfMouseOnTheShip,lengthOfTheShip,shipName];
         e.dataTransfer.setData('ship-data', JSON.stringify(transferData));
     }
 
@@ -30,7 +31,19 @@ function addDragDropFeature(){
     }
     
     function drop(e){
-
+        e.stopPropagation(); // stops the browser from redirecting.
+        const xAxisOfDropTarget=Number(e.target.dataset.index.split(',')[0]);
+        const shipDataJson=e.dataTransfer.getData('ship-data');
+        const shipData=JSON.parse(shipDataJson);
+        const shiplength=shipData[1];
+        const positionOfMouseOnTheShip=shipData[0];
+        for(let i=0;i<shiplength;i++){
+            let xAxisOfShipStartPosition=xAxisOfDropTarget-positionOfMouseOnTheShip;
+            humanGameboardCells[xAxisOfShipStartPosition+i].style.background='#444444';
+        }
+        const shipName=shipData[2];
+        const draggable=document.querySelector(`#${shipName}`);
+        draggable.style.display='none';
     }
     
     const humanGameboardCells=document.querySelectorAll('#friendly-area-gameboard .square_div');
