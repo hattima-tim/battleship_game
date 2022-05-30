@@ -55,27 +55,36 @@ function addDragDropFeature(){
         }
     }
 
+    function isThereEnoughSpace(cells_With_Same_Y_Axis_As_DropTarget,shipData,xAxisOfDroppedShipFirstPosition){
+        const shiplength=Number(shipData[1]);
+        const xAxisOfFirstCell=cells_With_Same_Y_Axis_As_DropTarget[0].dataset.index.split(',')[0];
+        const xAxisOfLastCell=cells_With_Same_Y_Axis_As_DropTarget[cells_With_Same_Y_Axis_As_DropTarget.length-1].dataset.index.split(',')[0];
+        if(xAxisOfFirstCell<=xAxisOfDroppedShipFirstPosition 
+            && (xAxisOfLastCell>=xAxisOfDroppedShipFirstPosition+(shiplength-1))){
+                // shilplength-1 because 95+5=100 but if you consider 95 and add 5 to it then it would be 99
+                // you have to consider this nuance when working with gameboard cells
+                return true; //means the ship can be placed
+        }else{
+            return false;
+        }
+    }
+
     function checkIfDropValid(event,shipData){
         const dropTargetCoordinates=event.target.dataset.index.split(',');
+        const positionOfMouseOnTheShip=shipData[0];
+        const xAxisOfDroppedShipFirstPosition=dropTargetCoordinates[0]-positionOfMouseOnTheShip;
         const humanGameboardCellsArray=[...humanGameboardCells];
         let cells_With_Same_Y_Axis_As_DropTarget=humanGameboardCellsArray.filter(cell=>{
             const yAxisOfCell=cell.dataset.index.split(',')[1];
             const yAxisOfDropTarget=dropTargetCoordinates[1];
             return yAxisOfCell===yAxisOfDropTarget;
         })
-        const xAxisOfFirstCell=cells_With_Same_Y_Axis_As_DropTarget[0].dataset.index.split(',')[0];
-        const xAxisOfLastCell=cells_With_Same_Y_Axis_As_DropTarget[cells_With_Same_Y_Axis_As_DropTarget.length-1].dataset.index.split(',')[0];
-        const positionOfMouseOnTheShip=shipData[0];
-        const xAxisOfDroppedShipFirstPosition=dropTargetCoordinates[0]-positionOfMouseOnTheShip;
-        const shiplength=Number(shipData[1]);
+
         if(isAShipAlreadyPlaced(cells_With_Same_Y_Axis_As_DropTarget,shipData,xAxisOfDroppedShipFirstPosition)){
             return false; //means there is already a ship placed in the same axis
-        }else if(xAxisOfFirstCell<=xAxisOfDroppedShipFirstPosition 
-            && (xAxisOfLastCell>=xAxisOfDroppedShipFirstPosition+(shiplength-1))){
-                // shilplength-1 because 95+5=100 but if you consider 95 and add 5 to it then it would be 99
-                // you have to consider this nuance when working with gameboard cells
+        }else if(isThereEnoughSpace(cells_With_Same_Y_Axis_As_DropTarget,shipData,xAxisOfDroppedShipFirstPosition)){
                 return true; //means the ship can be placed
-            }else{
+        }else{
                 return false;
         }
     }
