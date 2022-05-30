@@ -30,6 +30,31 @@ function addDragDropFeature(){
         
     }
     
+    function isAShipAlreadyPlaced(
+        cells_With_Same_Y_Axis_As_DropTarget,shipData,xAxisOfDroppedShipFirstPosition){
+        let cellsWithShipPlaced=cells_With_Same_Y_Axis_As_DropTarget.filter(cell=>{
+            return cell.classList.contains('dropped');
+        });
+        let shipsPositionsInXAxis=cellsWithShipPlaced.map(cell=>{
+            return parseInt(cell.dataset.index.split(',')[0]);
+        });
+        let potentialShipPositionsForCurrentShip=[];
+        const shipLength=shipData[1];
+        for(let i=0;i<shipLength;i++){
+            let droppedShipPosition=xAxisOfDroppedShipFirstPosition;
+            droppedShipPosition+=i;
+            potentialShipPositionsForCurrentShip.push(droppedShipPosition);
+        }
+        let totalOverlappedShipPositions = potentialShipPositionsForCurrentShip.some(potentialShipPosition=>{
+            return shipsPositionsInXAxis.includes(potentialShipPosition);
+        });
+        if(totalOverlappedShipPositions){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     function checkIfDropValid(event,shipData){
         const dropTargetCoordinates=event.target.dataset.index.split(',');
         const humanGameboardCellsArray=[...humanGameboardCells];
@@ -43,13 +68,17 @@ function addDragDropFeature(){
         const positionOfMouseOnTheShip=shipData[0];
         const xAxisOfDroppedShipFirstPosition=dropTargetCoordinates[0]-positionOfMouseOnTheShip;
         const shiplength=Number(shipData[1]);
-        if(xAxisOfFirstCell<=xAxisOfDroppedShipFirstPosition 
+        if(isAShipAlreadyPlaced(cells_With_Same_Y_Axis_As_DropTarget,shipData,xAxisOfDroppedShipFirstPosition)){
+            return false; //means there is already a ship placed in the same axis
+        }else if(xAxisOfFirstCell<=xAxisOfDroppedShipFirstPosition 
             && (xAxisOfLastCell>=xAxisOfDroppedShipFirstPosition+(shiplength-1))){
                 // shilplength-1 because 95+5=100 but if you consider 95 and add 5 to it then it would be 99
                 // you have to consider this nuance when working with gameboard cells
-                return true;
-            }else{return false}
+                return true; //means the ship can be placed
+            }else{
+                return false;
         }
+    }
         
     const human=humanPlayer();
     const totalShips=4;
@@ -73,6 +102,7 @@ function addDragDropFeature(){
         human.gameboard.placeShip(`${shipName}`,xAxisOfShipStartPosition);
         for(let i=0;i<shiplength;i++){
             humanGameboardCells[xAxisOfShipStartPosition+i].style.background='#444444';
+            humanGameboardCells[xAxisOfShipStartPosition+i].classList.add('dropped');
         }
 
         const draggable=document.querySelector(`#${shipName}`);
