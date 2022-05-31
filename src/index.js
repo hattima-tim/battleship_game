@@ -68,3 +68,19 @@ function addEventListenerToAiGameBoard(aiPlayer,human){
         }, {once : true})
     })  
 }
+
+function playGame(){
+    const computer=ai();
+    computer.gameboard.placeShip('carrier',4);
+    computer.gameboard.placeShip('battleship',14);
+    computer.gameboard.placeShip('destroyer',34);
+    computer.gameboard.placeShip('submarine',54);
+    addEventListenerToAiGameBoard(computer,human);
+    const humanGameBoard=human.gameboard;
+    computer.attack(humanGameBoard)
+}
+
+const startGameButton=document.querySelector('#start');
+startGameButton.addEventListener('click',()=>{
+    playGame();
+})
