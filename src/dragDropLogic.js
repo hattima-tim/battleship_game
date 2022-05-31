@@ -1,5 +1,4 @@
-import {humanPlayer} from'./gameLogic';
-function addDragDropFeature(){
+function addDragDropFeature(human){
     const allDraggableDivs=document.querySelectorAll('.draggable');
     allDraggableDivs.forEach(div=>{
         for(let i=0;i<div.children.length;i++){
@@ -88,8 +87,7 @@ function addDragDropFeature(){
                 return false;
         }
     }
-        
-    const human=humanPlayer();
+
     const totalShips=4;
     let dropCount=0;
 
@@ -118,7 +116,6 @@ function addDragDropFeature(){
         draggable.style.display='none';
         dropCount+=1;
         if(dropCount===totalShips){
-            localStorage.setItem('humanPlayerData',JSON.stringify(human));
             const startGameButton=document.querySelector('#start');
             startGameButton.style.display='block';
         }
