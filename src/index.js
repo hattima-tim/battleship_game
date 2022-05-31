@@ -1,4 +1,5 @@
-import {ship,gameBoard,humanPlayer,ai} from './gameLogic';
+import {humanPlayer,ai} from './gameLogic';
+import {addDragDropFeature} from './dragDropLogic';
 
 const friendlyAreaGameboard=document.querySelector('#friendly-area-gameboard');
 const enemyAreaGameboard=document.querySelector('#enemy-area-gameboard');
@@ -9,9 +10,17 @@ function createGameBoardDom(gameBoardContainerName){
     gameBoardContainerName.style.gridTemplateRows=`repeat(${gridSize},1fr)`;
     gameBoardContainerName.style.gridTemplateColumns=`repeat(${gridSize},1fr)`;
     let squareDiv=[];
+    let loopCount=1;
+    let yAxis=1;
     for (let i=0;i<gridSquare;i++){
         squareDiv[i]=document.createElement('div');
-        squareDiv[i].setAttribute('data-index',`${i}`);
+        squareDiv[i].setAttribute('data-index',`${[i,yAxis]}`);
+        if(loopCount===10){
+            yAxis+=1;
+            loopCount=1;
+        }else{
+            loopCount+=1;
+        }
         squareDiv[i].classList.add('square_div');
         gameBoardContainerName.appendChild(squareDiv[i]);
     }
@@ -19,6 +28,11 @@ function createGameBoardDom(gameBoardContainerName){
 
 createGameBoardDom(friendlyAreaGameboard);
 createGameBoardDom(enemyAreaGameboard);
+
+const human=humanPlayer();
+addDragDropFeature(human)
+//human goes into this function and get changed
+//but since human is an object we will get an updated human object in this module
 
 function markShipsInTheDom(humanGameBoard){
     humanGameBoard.shipList.forEach(ship => {
@@ -47,10 +61,26 @@ function itIsAiTurn(ai,human){
 function addEventListenerToAiGameBoard(aiPlayer,human){
     enemyAreaGameboard.childNodes.forEach((child)=>{
         child.addEventListener('click',(e)=>{
-            const targetIndex=e.target.dataset.index;
+            const targetIndex=parseInt(e.target.dataset.index.split(',')[0]);
             aiPlayer.gameboard.receiveAttack(targetIndex);
             markHitUnhit(aiPlayer,enemyAreaGameboard);
             itIsAiTurn(aiPlayer,human)
         }, {once : true})
     })  
 }
+
+function playGame(){
+    const computer=ai();
+    computer.gameboard.placeShip('carrier',4);
+    computer.gameboard.placeShip('battleship',14);
+    computer.gameboard.placeShip('destroyer',34);
+    computer.gameboard.placeShip('submarine',54);
+    addEventListenerToAiGameBoard(computer,human);
+    const humanGameBoard=human.gameboard;
+    computer.attack(humanGameBoard)
+}
+
+const startGameButton=document.querySelector('#start');
+startGameButton.addEventListener('click',()=>{
+    playGame();
+})

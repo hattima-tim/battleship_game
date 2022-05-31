@@ -7,3 +7,17 @@
 .square_div{
     border:1px solid black;
 }
+
+.draggable{
+    display: inline-flex;
+    border: 2px solid black;
+}
+.box {
+    height: 23px;
+    width: 23px;
+    border:1px solid black;
+}
+
+#start {
+    display: none;
+}

@@ -11,9 +11,6 @@ function ship(shipname,coordinate){
             shipLength=3;
             break;
         case ('submarine'):
-            shipLength=3;
-            break;
-        case 'petrol boat':
             shipLength=2;
             break;
     }
@@ -37,6 +34,7 @@ function gameBoard(){
     }
     let missedHits=[];
     function receiveAttack(hitCoordinate){
+        console.log('working')
         for(let i=0;i<shipList.length;i++){
             if(hitCoordinate>=shipList[i].coordinate && hitCoordinate<(shipList[i].coordinate+shipList[i].shipLength)){
                 shipList[i].hit(hitCoordinate);
@@ -57,8 +55,9 @@ function humanPlayer(){
     return {gameboard,attack}
 }
 
-function ai(gameBoardSize){
+function ai(){
        const gameboard=gameBoard();
+       const gameBoardSize=100;
        let coordinatesForAttack=[];
        for(let i=0;i<gameBoardSize;i++){
            coordinatesForAttack.push(i);
