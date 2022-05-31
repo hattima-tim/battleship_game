@@ -29,6 +29,11 @@ function createGameBoardDom(gameBoardContainerName){
 createGameBoardDom(friendlyAreaGameboard);
 createGameBoardDom(enemyAreaGameboard);
 
+const human=humanPlayer();
+addDragDropFeature(human)
+//human goes into this function and get changed
+//but since human is an object we will get an updated human object in this module
+
 function markShipsInTheDom(humanGameBoard){
     humanGameBoard.shipList.forEach(ship => {
         for(let i=0;i<ship.shipLength;i++){
