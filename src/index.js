@@ -1,4 +1,5 @@
 import {humanPlayer,ai} from './gameLogic';
+import {addDragDropFeature} from './dragDropLogic';
 
 const friendlyAreaGameboard=document.querySelector('#friendly-area-gameboard');
 const enemyAreaGameboard=document.querySelector('#enemy-area-gameboard');
