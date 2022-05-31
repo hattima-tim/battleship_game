@@ -61,7 +61,7 @@ function itIsAiTurn(ai,human){
 function addEventListenerToAiGameBoard(aiPlayer,human){
     enemyAreaGameboard.childNodes.forEach((child)=>{
         child.addEventListener('click',(e)=>{
-            const targetIndex=e.target.dataset.index;
+            const targetIndex=parseInt(e.target.dataset.index.split(',')[0]);
             aiPlayer.gameboard.receiveAttack(targetIndex);
             markHitUnhit(aiPlayer,enemyAreaGameboard);
             itIsAiTurn(aiPlayer,human)
