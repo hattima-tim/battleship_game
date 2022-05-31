@@ -1,4 +1,4 @@
-import {ship,gameBoard,humanPlayer,ai} from './gameLogic';
+import {humanPlayer,ai} from './gameLogic';
 
 const friendlyAreaGameboard=document.querySelector('#friendly-area-gameboard');
 const enemyAreaGameboard=document.querySelector('#enemy-area-gameboard');
