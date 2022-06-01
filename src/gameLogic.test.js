@@ -62,3 +62,18 @@ test('ai can attack adjacent cells when there is a successful attack',()=>{
     aiPlayer.attack(human.gameboard);
     expect(human.gameboard.shipList[0].hitPositions).toEqual([5,6,7,8,9])
 })
+
+test('ai stops attacking adjacent cells if there is unsuccessful attack',()=>{
+    const human=humanPlayer();
+    const gameBoardSize=100;
+    const aiPlayer=ai(gameBoardSize);
+    human.gameboard.placeShip('submarine',5);
+    
+    human.gameboard.shipList[0].hitPositions.push(5);
+    aiPlayer.attack(human.gameboard);
+    expect(human.gameboard.shipList[0].hitPositions).toEqual([5,6])
+    
+    aiPlayer.attack(human.gameboard);//missed hit because ship length for submarine is 2
+    aiPlayer.attack(human.gameboard);//missed hit for same reason
+    expect(human.gameboard.missedHits).not.toEqual([7,8]); 
+})
