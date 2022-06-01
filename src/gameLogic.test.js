@@ -49,3 +49,16 @@ test('ai can make random attack',()=>{
         expect(human.gameboard.missedHits.length).toBe(1)
     }
 })
+
+test('ai can attack adjacent cells when there is a successful attack',()=>{
+    const human=humanPlayer();
+    human.gameboard.placeShip('carrier',5);
+    human.gameboard.shipList[0].hitPositions.push(5);
+    const gameBoardSize=100;
+    const aiPlayer=ai(gameBoardSize);
+    aiPlayer.attack(human.gameboard);
+    aiPlayer.attack(human.gameboard);
+    aiPlayer.attack(human.gameboard);
+    aiPlayer.attack(human.gameboard);
+    expect(human.gameboard.shipList[0].hitPositions).toEqual([5,6,7,8,9])
+})
