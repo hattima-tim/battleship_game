@@ -34,7 +34,6 @@ function gameBoard(){
     }
     let missedHits=[];
     function receiveAttack(hitCoordinate){
-        console.log('working')
         for(let i=0;i<shipList.length;i++){
             if(hitCoordinate>=shipList[i].coordinate && hitCoordinate<(shipList[i].coordinate+shipList[i].shipLength)){
                 shipList[i].hit(hitCoordinate);
@@ -55,6 +54,32 @@ function humanPlayer(){
     return {gameboard,attack}
 }
 
+function calculateShotCoordinate(
+    previousEnemyGameBoardHitPositions,
+    enemyGameBoard,
+    coordinatesForAttack
+    ){
+    let updatedEnemyGameboardHitPositions = [];
+    enemyGameBoard.shipList.forEach((ship)=>{
+        updatedEnemyGameboardHitPositions=updatedEnemyGameboardHitPositions.concat(ship.hitPositions);
+    });
+    
+    const oldLength=previousEnemyGameBoardHitPositions.length;
+    const newLength=updatedEnemyGameboardHitPositions.length;
+    let shotCoordinate;
+    
+    if(oldLength<newLength){ //means last attack was a hit
+        previousEnemyGameBoardHitPositions.push(updatedEnemyGameboardHitPositions);
+        shotCoordinate = updatedEnemyGameboardHitPositions[newLength-1]+1;
+        coordinatesForAttack.splice(coordinatesForAttack.indexOf(shotCoordinate),1);
+        return shotCoordinate;
+    }else{
+        shotCoordinate = coordinatesForAttack[Math.floor(Math.random()*coordinatesForAttack.length)];
+        coordinatesForAttack.splice(coordinatesForAttack.indexOf(shotCoordinate),1);
+        return shotCoordinate;
+    }
+}
+
 function ai(){
        const gameboard=gameBoard();
        const gameBoardSize=100;
@@ -62,9 +87,10 @@ function ai(){
        for(let i=0;i<gameBoardSize;i++){
            coordinatesForAttack.push(i);
        }
-       function attack(enemyGameBoard){
-           const shotCoordinate=coordinatesForAttack[Math.floor(Math.random()*coordinatesForAttack.length)];
-           coordinatesForAttack.splice(coordinatesForAttack.indexOf(shotCoordinate),1);
+       let previousEnemyGameBoardHitPositions=[];
+       
+       function attack(enemyGameBoard){           
+           const shotCoordinate=calculateShotCoordinate(previousEnemyGameBoardHitPositions,enemyGameBoard,coordinatesForAttack);
            enemyGameBoard.receiveAttack(shotCoordinate);
        }
        return {gameboard,attack}
