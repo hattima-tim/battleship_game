@@ -58,25 +58,50 @@ function humanPlayer() {
   return { gameboard, attack };
 }
 
-function calculateShotCoordinate(
+function returnLastSuccessfulHitPositionOfEnemyGameboard(
   previousEnemyGameBoardHitPositions,
-  enemyGameBoard,
-  coordinatesForAttack
+  enemyGameBoard
 ) {
   let updatedEnemyGameboardHitPositions = [];
   enemyGameBoard.shipList.forEach((ship) => {
     updatedEnemyGameboardHitPositions =
       updatedEnemyGameboardHitPositions.concat(ship.hitPositions);
   });
+  const lastHitPositionStr = updatedEnemyGameboardHitPositions
+    .filter((position) => {
+      return !previousEnemyGameBoardHitPositions.includes(position);
+    })
+    .toString();
+  if (
+    updatedEnemyGameboardHitPositions.length >
+    previousEnemyGameBoardHitPositions.length
+  ) { //means last attack was successful
+    const lastHitPosition=parseInt(lastHitPositionStr)
+    previousEnemyGameBoardHitPositions.push(lastHitPosition);
+    return lastHitPosition;
+  } else {
+    return false; //means last attack was not successful
+  }
+}
 
-  const oldLength = previousEnemyGameBoardHitPositions.length;
-  const newLength = updatedEnemyGameboardHitPositions.length;
+function calculateShotCoordinate(
+  previousEnemyGameBoardHitPositions,
+  enemyGameBoard,
+  coordinatesForAttack
+) {
+  const lastHitPositionOfEnemyGameboard =
+    returnLastSuccessfulHitPositionOfEnemyGameboard(
+      previousEnemyGameBoardHitPositions,
+      enemyGameBoard
+    );
+  const coordinatesForAttackIncludeNextHit = coordinatesForAttack.includes(
+    lastHitPositionOfEnemyGameboard + 1
+  );
   let shotCoordinate;
 
-  if (oldLength < newLength) {
+  if (lastHitPositionOfEnemyGameboard && coordinatesForAttackIncludeNextHit) {
     //means last attack was a hit
-    previousEnemyGameBoardHitPositions.push(updatedEnemyGameboardHitPositions);
-    shotCoordinate = updatedEnemyGameboardHitPositions[newLength - 1] + 1;
+    shotCoordinate = lastHitPositionOfEnemyGameboard + 1;
     coordinatesForAttack.splice(
       coordinatesForAttack.indexOf(shotCoordinate),
       1
