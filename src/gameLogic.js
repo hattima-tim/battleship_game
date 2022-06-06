@@ -47,7 +47,12 @@ function gameBoard() {
       }
     }
   }
-  return { shipList, placeShip, receiveAttack, missedHits };
+  function areAllShipSunk() {
+    return shipList.every((ship) => {
+      return ship.isSunk();
+    });
+  }
+  return { shipList, placeShip, receiveAttack, missedHits, areAllShipSunk };
 }
 
 function humanPlayer() {
