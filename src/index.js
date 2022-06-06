@@ -61,6 +61,18 @@ function itIsAiTurn(ai, human) {
   markHitUnhit(human, friendlyAreaGameboard);
 }
 
+function checkWinner(aiPlayer, human) {
+  const allComputerShipSunk = aiPlayer.gameboard.areAllShipSunk();
+  const allHumanShipSunk = human.gameboard.areAllShipSunk();
+  if (allComputerShipSunk) {
+    return "you";
+  } else if (allHumanShipSunk) {
+    return "ai";
+  } else {
+    return false;
+  }
+}
+
 function addEventListenerToAiGameBoard(aiPlayer, human) {
   enemyAreaGameboard.childNodes.forEach((child) => {
     child.addEventListener(
