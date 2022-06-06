@@ -86,3 +86,23 @@ test('ai stops attacking adjacent cells if there is unsuccessful attack',()=>{
     aiPlayer.attack(human.gameboard);//missed hit for same reason
     expect(human.gameboard.missedHits).not.toEqual([7,8]); 
 })
+
+describe('gameboard can report whether or not all ship is sunk',()=>{
+    const gameboard=gameBoard();
+    gameboard.placeShip('submarine',5); //ship is in 5 and 6 number cell
+    gameboard.placeShip('submarine',7); //ship is in 7 and 8 number cell
+    
+    test('gameboard can report whether all ship is sunk',()=>{
+        for(let i=5;i<=8;i++){
+            gameboard.receiveAttack(i); //attacks 5,6,7,8 number cells
+        }
+        expect(gameboard.areAllShipSunk()).toBe(true)
+    })
+
+    test('gameboard can report all ship is not sunk',()=>{
+        for(let i=5;i<=6;i++){
+            gameboard.receiveAttack(i); //only attacks cell number 5,6
+        }
+        expect(gameboard.areAllShipSunk()).toBe(false);
+    })
+})
