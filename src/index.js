@@ -73,16 +73,21 @@ function checkWinner(aiPlayer, human) {
   }
 }
 
+function handleClickEvents(aiPlayer, human) {
+  const targetIndex = parseInt(this.dataset.index.split(",")[0]);
+  aiPlayer.gameboard.receiveAttack(targetIndex);
+  markHitUnhit(aiPlayer, enemyAreaGameboard);
+  itIsAiTurn(aiPlayer, human);
+  const winner = checkWinner(aiPlayer, human);
+  if (winner) {
+    alert(`${winner} won the game`);
+  }
+}
 function addEventListenerToAiGameBoard(aiPlayer, human) {
   enemyAreaGameboard.childNodes.forEach((child) => {
     child.addEventListener(
       "click",
-      (e) => {
-        const targetIndex = parseInt(e.target.dataset.index.split(",")[0]);
-        aiPlayer.gameboard.receiveAttack(targetIndex);
-        markHitUnhit(aiPlayer, enemyAreaGameboard);
-        itIsAiTurn(aiPlayer, human);
-      },
+      handleClickEvents.bind(child, aiPlayer, human),
       { once: true }
     );
   });
