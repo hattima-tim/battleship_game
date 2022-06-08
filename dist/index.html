@@ -8,39 +8,50 @@
     <title>Battleship</title>
 </head>
 <body>
-    <h2>Friendly Area</h2>
-    <div id="friendly-area-gameboard" class="container">
+    <div id="whole_friendly_area_container">
+        <div>
+            <h2>Friendly Area</h2>
+            <div id="friendly-area-gameboard" class="container">
+    
+            </div>
+        </div>
 
-    </div>
-    <div id="carrier" class="draggable" draggable="true" data-index="" data-shiplength="5">
-        <div class="box" data-index="0"></div>
-        <div class="box" data-index="1"></div>
-        <div class="box" data-index="2"></div>
-        <div class="box" data-index="3"></div>
-        <div class="box" data-index="4"></div>
+        <div id="all_ship_container">
+            <div id="carrier" class="draggable" draggable="true" data-index="" data-shiplength="5">
+                <div class="box" data-index="0"></div>
+                <div class="box" data-index="1"></div>
+                <div class="box" data-index="2"></div>
+                <div class="box" data-index="3"></div>
+                <div class="box" data-index="4"></div>
+            </div>
+        
+            <div id="battleship" class="draggable" draggable="true" data-index="" data-shiplength="4">
+                <div class="box" data-index="0"></div>
+                <div class="box" data-index="1"></div>
+                <div class="box" data-index="2"></div>
+                <div class="box" data-index="3"></div>
+            </div>
+        
+            <div id="destroyer" class="draggable" draggable="true" data-index="" data-shiplength="3">
+                <div class="box" data-index="0"></div>
+                <div class="box" data-index="1"></div>
+                <div class="box" data-index="2"></div>
+            </div>
+        
+            <div id="submarine" class="draggable" draggable="true" data-index="" data-shiplength="2">
+                <div class="box" data-index="0"></div>
+                <div class="box" data-index="1"></div>
+            </div>
+        </div>
     </div>
 
-    <div id="battleship" class="draggable" draggable="true" data-index="" data-shiplength="4">
-        <div class="box" data-index="0"></div>
-        <div class="box" data-index="1"></div>
-        <div class="box" data-index="2"></div>
-        <div class="box" data-index="3"></div>
-    </div>
-
-    <div id="destroyer" class="draggable" draggable="true" data-index="" data-shiplength="3">
-        <div class="box" data-index="0"></div>
-        <div class="box" data-index="1"></div>
-        <div class="box" data-index="2"></div>
-    </div>
-
-    <div id="submarine" class="draggable" draggable="true" data-index="" data-shiplength="2">
-        <div class="box" data-index="0"></div>
-        <div class="box" data-index="1"></div>
-    </div>
     <button id="start">Start Game</button>
-    <h2>Enemy Area</h2>
-    <div id="enemy-area-gameboard" class="container">
+        <div id="ai_container">    
+            <h2>Enemy Area</h2>
+            <div id="enemy-area-gameboard" class="container">
 
+            </div>
+        </div>
     </div>
 
     <script src="main.js"></script>
