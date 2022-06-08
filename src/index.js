@@ -72,6 +72,12 @@ function checkWinner() {
   }
 }
 
+function removeAllEventListenerInComputerGameboard() {
+  enemyAreaGameboard.childNodes.forEach((child) => {
+    child.removeEventListener("click", handleClickEvents);
+  });
+}
+
 function handleClickEvents() {
   const targetIndex = parseInt(this.dataset.index.split(",")[0]);
   computer.gameboard.receiveAttack(targetIndex);
@@ -79,16 +85,13 @@ function handleClickEvents() {
   itIsAiTurn();
   const winner = checkWinner();
   if (winner) {
-  alert(`${winner} won the game`);
+    alert(`${winner} won the game`);
+    removeAllEventListenerInComputerGameboard();
   }
 }
 function addEventListenerToAiGameBoard() {
   enemyAreaGameboard.childNodes.forEach((child) => {
-    child.addEventListener(
-      "click",
-      handleClickEvents.bind(child, aiPlayer, human),
-      { once: true }
-    );
+    child.addEventListener("click", handleClickEvents, { once: true });
   });
 }
 
