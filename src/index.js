@@ -95,7 +95,10 @@ function addEventListenerToAiGameBoard() {
   });
 }
 
-function playGame() {
+const aiDomContainer = document.querySelector("#ai_container");
+function playGame(gameStartButton) {
+  gameStartButton.style.display = "none";
+  aiDomContainer.style.display = "block";
   computer.gameboard.placeShip("carrier", 4);
   computer.gameboard.placeShip("battleship", 14);
   computer.gameboard.placeShip("destroyer", 34);
@@ -104,6 +107,6 @@ function playGame() {
 }
 
 const startGameButton = document.querySelector("#start");
-startGameButton.addEventListener("click", () => {
-  playGame();
+startGameButton.addEventListener("click", (e) => {
+  playGame(e.target);
 });
