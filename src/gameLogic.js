@@ -80,8 +80,9 @@ function returnLastSuccessfulHitPositionOfEnemyGameboard(
   if (
     updatedEnemyGameboardHitPositions.length >
     previousEnemyGameBoardHitPositions.length
-  ) { //means last attack was successful
-    const lastHitPosition=parseInt(lastHitPositionStr)
+  ) {
+    //means last attack was successful
+    const lastHitPosition = parseInt(lastHitPositionStr);
     previousEnemyGameBoardHitPositions.push(lastHitPosition);
     return lastHitPosition;
   } else {
@@ -145,4 +146,7 @@ function ai() {
   return { gameboard, attack };
 }
 
-export { ship, gameBoard, humanPlayer, ai };
+const human = humanPlayer();
+const computer = ai();
+
+export { ship, gameBoard, human, computer, humanPlayer, ai };
