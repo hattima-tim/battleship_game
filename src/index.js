@@ -1,4 +1,4 @@
-import { humanPlayer, ai } from "./gameLogic";
+import { human, computer } from "./gameLogic";
 import { addDragDropFeature } from "./dragDropLogic";
 
 const friendlyAreaGameboard = document.querySelector(
@@ -31,7 +31,6 @@ function createGameBoardDom(gameBoardContainerName) {
 createGameBoardDom(friendlyAreaGameboard);
 createGameBoardDom(enemyAreaGameboard);
 
-const human = humanPlayer();
 addDragDropFeature(human);
 //human goes into this function and get changed
 //but since human is an object we will get an updated human object in this module
@@ -56,13 +55,13 @@ function markHitUnhit(enemy, enemyGameboardDom) {
   });
 }
 
-function itIsAiTurn(ai, human) {
-  ai.attack(human.gameboard);
+function itIsAiTurn() {
+  computer.attack(human.gameboard);
   markHitUnhit(human, friendlyAreaGameboard);
 }
 
-function checkWinner(aiPlayer, human) {
-  const allComputerShipSunk = aiPlayer.gameboard.areAllShipSunk();
+function checkWinner() {
+  const allComputerShipSunk = computer.gameboard.areAllShipSunk();
   const allHumanShipSunk = human.gameboard.areAllShipSunk();
   if (allComputerShipSunk) {
     return "you";
@@ -73,17 +72,17 @@ function checkWinner(aiPlayer, human) {
   }
 }
 
-function handleClickEvents(aiPlayer, human) {
+function handleClickEvents() {
   const targetIndex = parseInt(this.dataset.index.split(",")[0]);
-  aiPlayer.gameboard.receiveAttack(targetIndex);
-  markHitUnhit(aiPlayer, enemyAreaGameboard);
-  itIsAiTurn(aiPlayer, human);
-  const winner = checkWinner(aiPlayer, human);
+  computer.gameboard.receiveAttack(targetIndex);
+  markHitUnhit(computer, enemyAreaGameboard);
+  itIsAiTurn();
+  const winner = checkWinner();
   if (winner) {
-    alert(`${winner} won the game`);
+  alert(`${winner} won the game`);
   }
 }
-function addEventListenerToAiGameBoard(aiPlayer, human) {
+function addEventListenerToAiGameBoard() {
   enemyAreaGameboard.childNodes.forEach((child) => {
     child.addEventListener(
       "click",
@@ -94,12 +93,11 @@ function addEventListenerToAiGameBoard(aiPlayer, human) {
 }
 
 function playGame() {
-  const computer = ai();
   computer.gameboard.placeShip("carrier", 4);
   computer.gameboard.placeShip("battleship", 14);
   computer.gameboard.placeShip("destroyer", 34);
   computer.gameboard.placeShip("submarine", 54);
-  addEventListenerToAiGameBoard(computer, human);
+  addEventListenerToAiGameBoard();
 }
 
 const startGameButton = document.querySelector("#start");
