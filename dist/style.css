@@ -1,3 +1,11 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap:5px;
+}
 .container {
     display: grid;
     width: 250px;
@@ -11,6 +19,7 @@
 .draggable{
     display: inline-flex;
     border: 2px solid black;
+    width:fit-content;
 }
 .box {
     height: 23px;
@@ -20,4 +29,18 @@
 
 #start {
     display: none;
+}
+
+#whole_friendly_area_container {
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap:6px;
+}
+
+#all_ship_container{
+    display: flex;
+    flex-direction: column;
+    gap: inherit;
 }
