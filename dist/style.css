@@ -44,3 +44,7 @@ body{
     flex-direction: column;
     gap: inherit;
 }
+
+#ai_container {
+    display: none;
+}
