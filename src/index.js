@@ -96,9 +96,11 @@ function addEventListenerToAiGameBoard() {
 }
 
 const aiDomContainer = document.querySelector("#ai_container");
+const scoreCard=document.querySelector('#score_card_container');
 function playGame(gameStartButton) {
   gameStartButton.style.display = "none";
   aiDomContainer.style.display = "block";
+  scoreCard.style.display='flex';
   computer.gameboard.placeShip("carrier", 4);
   computer.gameboard.placeShip("battleship", 14);
   computer.gameboard.placeShip("destroyer", 34);
