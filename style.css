@@ -55,3 +55,26 @@ body{
     align-items:center;
     gap: 10px;
 }
+
+#score_card_container{
+    display: none;
+}
+
+.player_score_card{
+    display: flex;
+    flex-direction: column;
+}
+
+#human_score_card{
+    border-right: 2px solid;
+    padding-right: 10px;
+}
+
+#ai_score_card{
+    padding-left: 10px;
+}
+
+#human_missed_hits,
+#ai_missed_hits{
+    margin-bottom: 0px;
+}
