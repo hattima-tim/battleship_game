@@ -1,4 +1,4 @@
-import { human, computer } from "./gameLogic";
+import { human, computer, getHitScoreOfBothPlayer } from "./gameLogic";
 import { addDragDropFeature } from "./dragDropLogic";
 
 const friendlyAreaGameboard = document.querySelector(
@@ -78,11 +78,27 @@ function removeAllEventListenerInComputerGameboard() {
   });
 }
 
+function showScore() {
+  let score = getHitScoreOfBothPlayer();
+  let humanScoreCard = document.querySelector("#human_score_card");
+  let humanMissedHitCount = humanScoreCard.children[0];
+  let humanHitCount = humanScoreCard.children[1];
+  humanMissedHitCount.textContent = `Missed Hits: ${score.humanMissedHitCount}`;
+  humanHitCount.textContent = `Hits: ${score.humanHitCount}`;
+
+  let computerScoreCard = document.querySelector("#ai_score_card");
+  let computerMissedHitCount = computerScoreCard.children[0];
+  let computerHitCount = computerScoreCard.children[1];
+  computerMissedHitCount.textContent = `Missed Hits: ${score.computerMissedHitCount}`;
+  computerHitCount.textContent = `Hits: ${score.computerHitCount}`;
+}
+
 function handleClickEvents() {
   const targetIndex = parseInt(this.dataset.index.split(",")[0]);
   computer.gameboard.receiveAttack(targetIndex);
   markHitUnhit(computer, enemyAreaGameboard);
   itIsAiTurn();
+  showScore();
   const winner = checkWinner();
   if (winner) {
     alert(`${winner} won the game`);
@@ -96,11 +112,11 @@ function addEventListenerToAiGameBoard() {
 }
 
 const aiDomContainer = document.querySelector("#ai_container");
-const scoreCard=document.querySelector('#score_card_container');
+const scoreCard = document.querySelector("#score_card_container");
 function playGame(gameStartButton) {
   gameStartButton.style.display = "none";
   aiDomContainer.style.display = "block";
-  scoreCard.style.display='flex';
+  scoreCard.style.display = "flex";
   computer.gameboard.placeShip("carrier", 4);
   computer.gameboard.placeShip("battleship", 14);
   computer.gameboard.placeShip("destroyer", 34);
