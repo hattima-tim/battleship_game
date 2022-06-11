@@ -1,4 +1,8 @@
-body{
+h1{
+    text-align: center;
+}
+
+#whole_game_area_container{
     display: flex;
     justify-content: center;
     align-items: center;
