@@ -149,4 +149,28 @@ function ai() {
 const human = humanPlayer();
 const computer = ai();
 
-export { ship, gameBoard, human, computer, humanPlayer, ai };
+function getHitScoreOfBothPlayer() {
+  let humanHitPositionsArr = [];
+  computer.gameboard.shipList.forEach((ship) => {
+    ship.hitPositions.forEach((position) => {
+      humanHitPositionsArr.push(position);
+    });
+  });
+  let humanMissedHitCount = computer.gameboard.missedHits.length;
+
+  let computerHitPositionsArr = [];
+  human.gameboard.shipList.forEach((ship) => {
+    ship.hitPositions.forEach((position) => {
+      computerHitPositionsArr.push(position);
+    });
+  });
+  let computerMissedHitCount = human.gameboard.missedHits.length;
+
+  return {
+    humanHitCount: humanHitPositionsArr.length,
+    humanMissedHitCount,
+    computerHitCount: computerHitPositionsArr.length,
+    computerMissedHitCount,
+  };
+}
+export { ship, gameBoard, human, computer, humanPlayer, ai ,getHitScoreOfBothPlayer};
