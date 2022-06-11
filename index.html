@@ -8,60 +8,63 @@
     <title>Battleship</title>
 </head>
 <body>
-    <div id="whole_friendly_area_container">
-        <div id="human_area_container">
-            <h2>Friendly Area</h2>
-            <div id="friendly-area-gameboard" class="container">
+    <h1>Battleship</h1>
+    <div id="whole_game_area_container">
+        <div id="whole_friendly_area_container">
+            <div id="human_area_container">
+                <h2>Friendly Area</h2>
+                <div id="friendly-area-gameboard" class="container">
+        
+                </div>
+                <button id="start">Start Game</button>
+            </div>
+    
+            <div id="all_ship_container">
+                <div id="carrier" class="draggable" draggable="true" data-index="" data-shiplength="5">
+                    <div class="box" data-index="0"></div>
+                    <div class="box" data-index="1"></div>
+                    <div class="box" data-index="2"></div>
+                    <div class="box" data-index="3"></div>
+                    <div class="box" data-index="4"></div>
+                </div>
+            
+                <div id="battleship" class="draggable" draggable="true" data-index="" data-shiplength="4">
+                    <div class="box" data-index="0"></div>
+                    <div class="box" data-index="1"></div>
+                    <div class="box" data-index="2"></div>
+                    <div class="box" data-index="3"></div>
+                </div>
+            
+                <div id="destroyer" class="draggable" draggable="true" data-index="" data-shiplength="3">
+                    <div class="box" data-index="0"></div>
+                    <div class="box" data-index="1"></div>
+                    <div class="box" data-index="2"></div>
+                </div>
+            
+                <div id="submarine" class="draggable" draggable="true" data-index="" data-shiplength="2">
+                    <div class="box" data-index="0"></div>
+                    <div class="box" data-index="1"></div>
+                </div>
+            </div>
+        </div>
+    
+        <div id="score_card_container">
+            <div id='human_score_card' class="player_score_card">Human
+                <p id="human_missed_hits">Missed hits:0</p>
+                <p id="human_hits">Hits:0</p>
+            </div>
+            <div id='ai_score_card' class="player_score_card">AI
+                <p id="ai_missed_hits">Missed hits:0</p>
+                <p id="ai_hits">Hits:0</p>
+            </div>
+        </div>
+        
+        <div id="ai_container">    
+            <h2>Enemy Area</h2>
+            <div id="enemy-area-gameboard" class="container">
     
             </div>
-            <button id="start">Start Game</button>
-        </div>
-
-        <div id="all_ship_container">
-            <div id="carrier" class="draggable" draggable="true" data-index="" data-shiplength="5">
-                <div class="box" data-index="0"></div>
-                <div class="box" data-index="1"></div>
-                <div class="box" data-index="2"></div>
-                <div class="box" data-index="3"></div>
-                <div class="box" data-index="4"></div>
-            </div>
-        
-            <div id="battleship" class="draggable" draggable="true" data-index="" data-shiplength="4">
-                <div class="box" data-index="0"></div>
-                <div class="box" data-index="1"></div>
-                <div class="box" data-index="2"></div>
-                <div class="box" data-index="3"></div>
-            </div>
-        
-            <div id="destroyer" class="draggable" draggable="true" data-index="" data-shiplength="3">
-                <div class="box" data-index="0"></div>
-                <div class="box" data-index="1"></div>
-                <div class="box" data-index="2"></div>
-            </div>
-        
-            <div id="submarine" class="draggable" draggable="true" data-index="" data-shiplength="2">
-                <div class="box" data-index="0"></div>
-                <div class="box" data-index="1"></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="score_card_container">
-        <div id='human_score_card' class="player_score_card">Human
-            <p id="human_missed_hits">Missed hits:0</p>
-            <p id="human_hits">Hits:0</p>
-        </div>
-        <div id='ai_score_card' class="player_score_card">AI
-            <p id="ai_missed_hits">Missed hits:0</p>
-            <p id="ai_hits">Hits:0</p>
-        </div>
-    </div>
-    
-    <div id="ai_container">    
-        <h2>Enemy Area</h2>
-        <div id="enemy-area-gameboard" class="container">
-
-        </div>
+        </div>    
     </div>
 
     <script src="main.js"></script>
