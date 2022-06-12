@@ -1,6 +1,18 @@
 import { human, computer, getHitScoreOfBothPlayer } from "./gameLogic";
 import { addDragDropFeature } from "./dragDropLogic";
 
+const howToModal=document.querySelector('#modal');
+const howToModalCloseButton=document.querySelector('#close_how_to_modal');
+const howToButton=document.querySelector('.how_to');
+
+howToButton.addEventListener('click',()=>{
+  howToModal.showModal();
+})
+
+howToModalCloseButton.addEventListener('click',()=>{
+  howToModal.close();
+})
+
 const friendlyAreaGameboard = document.querySelector(
   "#friendly-area-gameboard"
 );
