@@ -1,5 +1,38 @@
+#header{
+    display: flex;
+    justify-content: space-between;
+}
+
 h1{
-    text-align: center;
+    margin: 0 1rem;
+}
+
+h2{
+    margin: 0;
+}
+
+.how_to{
+    margin: 0 1rem;
+}
+
+.how_to,
+#close_how_to_modal{
+    cursor: pointer;
+}
+
+#close_how_to_modal{
+    float: right;
+}
+
+#modal{
+    border: none;
+    width: 30em;
+    height: 28em;
+    font-size: 20px;
+}
+
+li{
+    margin: 0 0 13px;
 }
 
 #whole_game_area_container{
