@@ -47,14 +47,29 @@ addDragDropFeature(human);
 //human goes into this function and get changed
 //but since human is an object we will get an updated human object in this module
 
-function markShipsInTheDom(humanGameBoard) {
-  humanGameBoard.shipList.forEach((ship) => {
+const autoPlaceButton=document.querySelector('#auto_place');
+const shipContainer=document.querySelector('#all_ship_container');
+const gameStartButton=document.querySelector('#start');
+
+function markShipsInTheDom() {
+  human.gameboard.shipList.forEach((ship) => {
     for (let i = 0; i < ship.shipLength; i++) {
       friendlyAreaGameboard.children[ship.coordinate + i].style.background =
         "#444444";
     }
   });
 }
+
+function autoPlaceShips(){
+  human.gameboard.placeShip("carrier", 14);
+  human.gameboard.placeShip("battleship", 34);
+  human.gameboard.placeShip("destroyer", 94);
+  human.gameboard.placeShip("submarine", 74);
+  markShipsInTheDom();
+  shipContainer.style.display='none';
+  gameStartButton.style.display='block';
+}
+autoPlaceButton.addEventListener('click',autoPlaceShips);
 
 function markHitUnhit(enemy, enemyGameboardDom) {
   enemy.gameboard.shipList.forEach((ship) => {
