@@ -59,11 +59,11 @@ function markShipsInTheDom(humanGameBoard) {
 function markHitUnhit(enemy, enemyGameboardDom) {
   enemy.gameboard.shipList.forEach((ship) => {
     ship.hitPositions.forEach((position) => {
-      enemyGameboardDom.children[position].textContent = "x";
+      enemyGameboardDom.children[position].style.background = "#F93943";
     });
   });
   enemy.gameboard.missedHits.forEach((missedHitPosition) => {
-    enemyGameboardDom.children[missedHitPosition].textContent = "o";
+    enemyGameboardDom.children[missedHitPosition].style.background = "#05B2DC";
   });
 }
 
