@@ -8,7 +8,56 @@
     <title>Battleship</title>
 </head>
 <body>
-    <h1>Battleship</h1>
+    <div id="header">
+        <h1>Battleship</h1>
+        <span class="how_to">How to Play</span>
+    </div>
+    <dialog id="modal">
+        <span id="close_how_to_modal">x</span>
+        <h2>About</h2>
+        <p> 
+            The objective of Battleship is to try and sink all of the opponent's ships before they sink all of yours. 
+            Players take turns firing shots to attempt to hit the enemy ships.
+            Both players can not see the fleet of the other, 
+            you have to guess where is the ideal position to shoot at!
+            First player to sink all the opponent's ships wins the game!
+        </p>
+        <h2>Rules</h2>
+        <ol>
+            <li>Place ships in the friendly area. 
+                Friendly area means, that area is yours. See the blocks beside the friendly area gameboard?
+                They are the ships.You can place them on the gameboard by drag and drop or if you are a mobile user click
+                the auto place button to place ships.
+            </li> 
+            <li>
+                After placing the ships you will see a start game button. click that and start the game.
+            </li>
+            <li>
+                Now you will see two gameboards. one is yours(friendly area gameboard) and 
+                another one is for the computer.
+            </li>
+            <li>
+                Click any cell of the computer gameboard to play the game. Clicking a cell of the computer gameboard 
+                means you are trying to attack the computer's ships and sink them. Don't see any ships? Don't worry,
+                they are there ,waiting to be sunk. Just continue guessing their position and sink them all.
+            </li>
+            <li>
+                If you attack the computer gameboard, the computer will take revenge by attacking your own gameboard
+                (friendly area gameboard). Sadly you can not do anything about it.
+            </li>
+            <li>
+                Your best bet is to sink all the computer ships before the computer does the same to you and win.
+            </li>
+            <li>
+                If a cell color becomes blue it is a missed hit and if a cell color becomes red it is a
+                successful hit.
+            </li>
+            <li>
+                There are 5 ships on each gameboard. So whoever sinks 5 ships first,wins.
+            </li>
+        </ol>
+    </dialog>
+
     <div id="whole_game_area_container">
         <div id="whole_friendly_area_container">
             <div id="human_area_container">
