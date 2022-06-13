@@ -152,9 +152,9 @@ const playGame = function (gameStartButton) {
     aiDomContainer.style.display = "block";
     scoreCard.style.display = "flex";
     computer.gameboard.placeShip("carrier", 4);
-    computer.gameboard.placeShip("battleship", 14);
-    computer.gameboard.placeShip("destroyer", 34);
-    computer.gameboard.placeShip("submarine", 54);
+    computer.gameboard.placeShip("battleship", 34);
+    computer.gameboard.placeShip("destroyer", 74);
+    computer.gameboard.placeShip("submarine", 94);
     addEventListenerToAiGameBoard();
 };
 
