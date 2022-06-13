@@ -1,13 +1,19 @@
+*{
+    box-sizing: border-box;
+}
+
 #header{
     display: flex;
     justify-content: space-between;
 }
 
 h1{
-    margin: 0 1rem;
+    margin: 0 0 1em 0.2em;
+    font-size: 25px;
 }
 
 h2{
+    font-size: 20px;
     margin: 0;
 }
 
@@ -114,4 +120,18 @@ li{
 #human_missed_hits,
 #ai_missed_hits{
     margin-bottom: 0px;
+}
+
+@media screen and (max-width: 375px) {
+    .container {
+        display: grid;
+        width: 210px;
+        height: 210px;
+        border: 1px solid black;
+    }
+    .box {
+        height: 18px;
+        width: 18x;
+        border:1px solid black;
+    }
 }
