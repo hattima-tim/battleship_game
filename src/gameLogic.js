@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const ship= function (shipname, coordinate) {
     let shipLength;
     switch (shipname) {
@@ -141,7 +142,33 @@ const ai=function () {
         );
         enemyGameBoard.receiveAttack(shotCoordinate);
     };
-    return { gameboard, attack };
+
+    const autoPlaceShip=function () {
+        const firstPositionsOfAllGameboardRow=[0, 10, 20, 30, 40, 50, 60, 70, 80, 90];
+        const fourRandomlyPickedPositions=[];
+        const pickeARandomPosition= function () {
+            return firstPositionsOfAllGameboardRow[
+                Math.floor(Math.random() * firstPositionsOfAllGameboardRow.length)
+            ];
+        };
+        for(let i=0;i<4;i+=1) {
+            const randomlyPickedPosition=pickeARandomPosition();
+            fourRandomlyPickedPositions.push(randomlyPickedPosition);
+            firstPositionsOfAllGameboardRow.splice(
+                firstPositionsOfAllGameboardRow.indexOf(randomlyPickedPosition),
+                1,
+            );
+        }
+        
+        gameboard.placeShip("carrier", fourRandomlyPickedPositions[0]);
+        gameboard.placeShip("battleship", fourRandomlyPickedPositions[1]+6);
+        // 4 is the length of battleship
+        gameboard.placeShip("destroyer", fourRandomlyPickedPositions[2]+3);
+        // 3 is the length of destroyer
+        gameboard.placeShip("submarine", fourRandomlyPickedPositions[3]+8);
+        // 6 is a random number
+    };
+    return { gameboard, attack, autoPlaceShip };
 };
 
 const human = humanPlayer();
